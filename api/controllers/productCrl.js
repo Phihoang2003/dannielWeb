@@ -36,28 +36,39 @@ export const getAllProduct=asyncHandler(async(req,res)=>{
         excludeObj.forEach(el=>delete queryObj[el]);
         let queryStr=JSON.stringify(queryObj);
         queryStr=queryStr.replace(/\b(gte|gt|lte|le)\b/g,(match)=>`$${match}`)
-        let product=Product.find(JSON.parse(queryStr));
+        let query=Product.find(JSON.parse(queryStr));
         //sort
         if(req.query.sort){
             const sortBy=req.query.sort.split(",").join(' ');
             const sortOrder=req.query.order==="desc"?-1:1;
             
-            product=await product.sort({[sortBy]:sortOrder});
+            query=await query.sort({[sortBy]:sortOrder});
             // console.log(sortOrder);
         }
         else{
-                product=product.sort('_createAt')
+                query=query.sort('_createAt')
         }
         //limiting
         if(req.query.fields){
             const fields=req.query.fields.split(",").join(" ");
-            product=product.select(fields)
+            query=query.select(fields)
         }
         else{
-            product=product.select("-__v");
+            query=query.select("-__v");
         }
-        const query = await product;
-        res.json(query)
+        //pagnination
+        const page=req.query.page;
+        const limit=req.query.limit;
+        const skip=(page-1)*limit;
+        query=query.skip(skip).limit(limit);
+        if(req.query.page){
+            const productCount=await Product.countDocuments();
+            if(skip>=productCount)
+                throw new Error("This page not exist")
+        }
+        console.log(page,limit,skip);
+        const product = await query;
+        res.json(product)
     } catch (error) {
         throw new Error(error)
     }
