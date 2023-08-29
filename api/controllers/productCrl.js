@@ -66,7 +66,7 @@ export const getAllProduct=asyncHandler(async(req,res)=>{
             if(skip>=productCount)
                 throw new Error("This page not exist")
         }
-        console.log(page,limit,skip);
+        
         const product = await query;
         res.json(product)
     } catch (error) {

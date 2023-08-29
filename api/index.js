@@ -4,6 +4,8 @@ import mongoose from "mongoose"
 import dotenv from "dotenv"
 import bodyParser from "body-parser"
 import productRoute from "./routes/productRoute.js"
+import { errorHandler, notFound } from "./middleware/errorHandler.js"
+import authRoute from "./routes/authRoute.js"
 dotenv.config()
 const port =8080;
 const app=express()
@@ -23,8 +25,10 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use("/api/user",authRoute)
 app.use("/api/product",productRoute)
-
+app.use(notFound)
+app.use(errorHandler);
 
 app.listen(port,()=>{
     connect();
