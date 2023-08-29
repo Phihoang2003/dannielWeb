@@ -4,6 +4,9 @@ import validateMongoDbId from "../utils/validateMongoId.js";
 import { generateRefreshToken } from "../config/refreshToken.js";
 import { generateToken } from "../config/jwtToken.js";
 import jwt, { decode } from "jsonwebtoken"
+import { sendEmail } from "./emailCtrl.js";
+import e from "express";
+import crypto from "crypto"
 export const createUser=asyncHandler(async(req,res)=>{
     const email=req.body.email;
     const findUser=await User.findOne({email:email});
@@ -86,6 +89,62 @@ export const logoutUser=asyncHandler(async(req,res)=>{
         secure:true
     });
     res.status(204).send("Logout successfully");
+})
+
+export const updatePassword=asyncHandler(async(req,res)=>{
+    const {_id}=req.user;
+    const {password}=req.body;
+    validateMongoDbId(_id)
+    const user=await User.findById(_id);
+   
+    if(password){
+        user.password=password;
+
+        const updatePassword=await user.save()
+        res.json(updatePassword)
+    }
+    else{
+        res.json(user)
+    }
+})
+
+export const forgotPasswordToken=asyncHandler(async(req,res)=>{
+    const {email}=req.body;
+    const user=await User.findOne({email});
+    
+    if(!user) throw new Error("User not found with this email");
+    try {
+        const token=await user.createPasswordResetToken();
+
+        await user.save();
+        const resetURL=`Hi, Please follow this link to reset your password. This link is valid till 10 minutes from you.<a href="http://localhost:8080/api/user/reset-password/${token}">Click here</a> `
+        const data={
+            to:email,
+            text:"Hey User",
+            subject:"Forgot Password Link",
+            htm:resetURL
+        }
+        await sendEmail(data);
+        res.json({token})
+    } catch (error) {
+        throw new Error(error)
+    }
+})
+export const resetPassword=asyncHandler(async(req,res)=>{
+    const {password}=req.body;
+    const {token}=req.params;
+    const hashToken=crypto.createHash("sha256").update(token).digest("hex");
+    const user=await User.findOne({
+        passwordResetToken:hashToken,
+        passwordResetExpires:{$gt:Date.now()}
+    })
+
+    if(!user) throw new Error("Token expires.Please, try again later");
+    user.password=password;
+    user.passwordResetToken=undefined;
+    user.passwordResetExpires=undefined;
+    await user.save();
+    res.json(user);
 })
 export const handleRefreshToken=asyncHandler(async(req,res)=>{
     const cookie=req.cookies;
