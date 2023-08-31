@@ -6,6 +6,10 @@ import bodyParser from "body-parser"
 import productRoute from "./routes/productRoute.js"
 import { errorHandler, notFound } from "./middleware/errorHandler.js"
 import authRoute from "./routes/authRoute.js"
+import blogRoute from "./routes/blogRoute.js"
+import categoryRoute from "./routes/categoryRoute.js"
+import blogCatRoute from "./routes/blogCatRoute.js"
+import couponRoute from "./routes/couponRoute.js"
 dotenv.config()
 const port =8080;
 const app=express()
@@ -27,6 +31,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/api/user",authRoute)
 app.use("/api/product",productRoute)
+app.use("/api/blog",blogRoute)
+app.use("/api/category",categoryRoute)
+app.use("/api/blogCat",blogCatRoute)
+app.use("/api/coupon",couponRoute)
 app.use(notFound)
 app.use(errorHandler);
 

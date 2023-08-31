@@ -1,8 +1,10 @@
 import express from "express";
-import { createProduct, deleteProduct, getAProduct, getAllProduct, updateProduct } from "../controllers/productCrl.js";
+import { addToWishlist, createProduct, deleteProduct, getAProduct, getAllProduct, rating, updateProduct } from "../controllers/productCrl.js";
 const router=express.Router();
-
-router.post("/",createProduct)
+import {authMiddleware} from "../middleware/authMiddleware.js"
+router.put("/wishlist",authMiddleware,addToWishlist)
+router.put("/rating",authMiddleware,rating)
+router.post("/",createProduct)  
 router.put("/:id",updateProduct)
 router.get("/",getAllProduct);
 router.get("/:id",getAProduct)
