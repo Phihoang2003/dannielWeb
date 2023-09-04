@@ -37,7 +37,6 @@
             font-size: 18px;
             text-transform: uppercase;
 
-
         }
         div:nth-child(4){
             margin-left: 128px;
@@ -50,6 +49,69 @@
             padding: 13px 48px;
             border: 1px solid #ccc;
         }
+        
+    }
+    .text-allwatch{
+        color:black;
+        position: absolute;
+        top: 40%;
+        left: 1%;
+        div:nth-child(1){
+            font-size: 37px;
+            opacity: 0.8;
+            font-weight: 100;
+            letter-spacing: 1.7px;
+            text-transform: uppercase;
+            width: fit-content;
+            margin-left: 150px;
+            
+        }
+    }
+    .jewellery-charm{
+        color:black;
+        position: absolute;
+        top: 40%;
+        left: 8%;
+        div:nth-child(1){
+            margin-bottom: 20px;
+            font-size: 16px;
+            opacity: 0.8;
+            font-weight: 100;
+            letter-spacing: 1.7px;
+            text-transform: uppercase;
+            width: fit-content;
+            
+            
+        }
+        div:nth-child(2){
+            font-size: 50px;
+            font-weight: 200;
+            text-transform: uppercase;
+            letter-spacing: 1.7px;
+
+        }
+    }
+    .filter{
+        margin-top: 80px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 90px;
+        width: 100%;
+        text-transform: uppercase;
+        font-size:15px;
+        .left,.right{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 135px;
+            
+        }
+        .left{
+
+            width: 87px;
+        }
+       
     }
     .endow{
         width: 100%;

@@ -59,7 +59,155 @@ const data=[
         price:16
     }
 ]
+export const allwatch=[
+    {
+        id:9,
+        img:home1,
+        
+        title:"Classic lumine bracelet g",
+        isNew:true,
+        isLove:false,
+        color:[gold,rosegold,sliver],
+        price:12
+    },
+    {
+        id:10,
+        img:home2,
+        title:"Elan lumine necklace gold",
+        isNew:true,
+        isLove:false,
+        color:[gold,rosegold,sliver],
+        price:14
+    },
+    {
+        id:11,
+        img:home3,
+        title:"Heart white crystal charm ",
+        isNew:true,
+        isLove:false,
+        color:[gold,rosegold,sliver],
+        price:15
+    },
+    {
+        id:12,
+        img:home4,
+        title:"Petite 5-link evergold ",
+        isNew:true,
+        isLove:false,
+        color:[gold,rosegold,sliver],
+        price:16
+    },{
+        id:13,
+        img:home1,
+        
+        title:"Classic lumine bracelet g",
+        isNew:true,
+        isLove:false,
+        color:[gold,rosegold,sliver],
+        price:12
+    },
+    {
+        id:14,
+        img:home2,
+        title:"Elan lumine necklace gold",
+        isNew:true,
+        isLove:false,
+        color:[gold,rosegold,sliver],
+        price:14
+    },
+    {
+        id:15,
+        img:home3,
+        title:"Heart white crystal charm ",
+        isNew:true,
+        isLove:false,
+        color:[gold,rosegold,sliver],
+        price:15
+    },
+    {
+        id:16,
+        img:home4,
+        title:"Petite 5-link evergold ",
+        isNew:true,
+        isLove:false,
+        color:[gold,rosegold,sliver],
+        price:16
+    },{
+        id:17,
+        img:home1,
+        
+        title:"Classic lumine bracelet g",
+        isNew:true,
+        isLove:false,
+        color:[gold,rosegold,sliver],
+        price:12
+    },
+    {
+        id:18,
+        img:home2,
+        title:"Elan lumine necklace gold",
+        isNew:true,
+        isLove:false,
+        color:[gold,rosegold,sliver],
+        price:14
+    },
+    {
+        id:19,
+        img:home3,
+        title:"Heart white crystal charm ",
+        isNew:true,
+        isLove:false,
+        color:[gold,rosegold,sliver],
+        price:15
+    },
+    {
+        id:20,
+        img:home4,
+        title:"Petite 5-link evergold ",
+        isNew:true,
+        isLove:false,
+        color:[gold,rosegold,sliver],
+        price:16
+    },
+    {
+        id:21,
+        img:home1,
+        
+        title:"Classic lumine bracelet g",
+        isNew:true,
+        isLove:false,
+        color:[gold,rosegold,sliver],
+        price:12
+    },
+    {
+        id:22,
+        img:home2,
+        title:"Elan lumine necklace gold",
+        isNew:true,
+        isLove:false,
+        color:[gold,rosegold,sliver],
+        price:14
+    },
+    {
+        id:23,
+        img:home3,
+        title:"Heart white crystal charm ",
+        isNew:true,
+        isLove:false,
+        color:[gold,rosegold,sliver],
+        price:15
+    },
+    {
+        id:24,
+        img:home4,
+        title:"Petite 5-link evergold ",
+        isNew:true,
+        isLove:false,
+        color:[gold,rosegold,sliver],
+        price:16
+    }
 
+]
 
 export const popularProduct=[
     {
