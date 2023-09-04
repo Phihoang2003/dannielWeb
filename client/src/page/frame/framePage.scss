@@ -1,0 +1,48 @@
+.home.open{
+    position: fixed;
+   
+    /* opacity: .2; */
+    
+    
+}
+
+.home.open::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Floating background color with opacity */
+    z-index: 3;
+    
+}
+.cursor{
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    background: black;
+    position: relative;
+    border-radius: 50%;
+    z-index: 11;
+    display: none;
+    .pointer{
+    width: 2px;
+    height: 15px;
+    background-color: #fff;
+    position: absolute;
+    transform-origin: center;
+    top: 24%;
+    left: 46%;
+    }
+    div:nth-child(1){
+        transform: rotate(45deg);
+    }
+    div:nth-child(2){
+        transform: rotate(-45deg);
+    }
+
+}
+
