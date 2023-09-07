@@ -10,6 +10,7 @@ import blogRoute from "./routes/blogRoute.js"
 import categoryRoute from "./routes/categoryRoute.js"
 import blogCatRoute from "./routes/blogCatRoute.js"
 import couponRoute from "./routes/couponRoute.js"
+import cors from "cors"
 dotenv.config()
 const port =8080;
 const app=express()
@@ -26,6 +27,7 @@ const connect =async()=>{
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 

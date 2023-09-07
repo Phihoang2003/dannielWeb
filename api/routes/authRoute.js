@@ -1,11 +1,12 @@
 import express, { application } from "express";
-import { applyCoupon, blockUser, createOrder, createUser, deleteUser, emptyCart, forgotPasswordToken, getAUser, getAllOrders, getAllUser, getOrderByUserId, getOrders, getUserCart, handleRefreshToken, loginUser, logoutUser, resetPassword, unblockUser, updateOrderStatus, updatePassword, updateUser, userCart } from "../controllers/authCtrl.js";
+import { applyCoupon, blockUser, createOrder, createUser, deleteUser, emptyCart, forgotPasswordToken, getAUser, getAllOrders, getAllUser, getOrderByUserId, getOrders, getUserCart, handleRefreshToken, loginAdmin, loginUser, logoutUser, resetPassword, unblockUser, updateOrderStatus, updatePassword, updateUser, userCart } from "../controllers/authCtrl.js";
 import { authMiddleware,isAdmin } from "../middleware/authMiddleware.js";
 const router=express.Router();
 
 router.post("/register",createUser);
 
 router.post("/login",loginUser)
+router.post("/admin-login", loginAdmin);
 router.get("/logout",logoutUser);
 router.post("/forgot-password-token",forgotPasswordToken)
 router.put("/reset-password/:token",resetPassword)
