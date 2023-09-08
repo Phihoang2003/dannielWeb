@@ -1,54 +1,95 @@
 import React, { useEffect, useState } from "react";
-
 import { Table } from "antd";
-
-import { AiFillDelete, AiOutlineEye } from "react-icons/ai";
+import { BiEdit } from "react-icons/bi";
+import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteABlog, getBlogs, resetState } from "../feature/blog/blogSlice";
+import CustomModal from "../component/CustomModal";
+
 const columns = [
   {
     title: "SNo",
     dataIndex: "key",
   },
   {
-    title: "Name",
+    title: "Title",
     dataIndex: "name",
   },
   {
-    title: "Email",
-    dataIndex: "email",
+    title: "Category",
+    dataIndex: "category",
   },
-  {
-    title: "Mobile",
-    dataIndex: "mobile",
-  },
-  {
-    title: "Staus",
-    dataIndex: "status",
-  },
-
   {
     title: "Action",
     dataIndex: "action",
   },
 ];
-const data1 = [];
-for (let i = 0; i < 46; i++) {
-  data1.push({
-    key: i,
-    name: `Edward King ${i}`,
-    product: 32,
-    staus: `London, Park Lane no. ${i}`,
-  });
-}
-const BlogList = () => {
+
+const Bloglist = () => {
+  const [open, setOpen] = useState(false);
+  const [blogId, setblogId] = useState("");
+  const showModal = (id) => {
+    setOpen(true);
+    setblogId(id);
+  };
+
+  const hideModal = () => {
+    setOpen(false);
+  };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(resetState());
+    dispatch(getBlogs());
+  }, []);
+  const getBlogState = useSelector((state) => state.blogs.blogs);
+  const data1 = [];
+  for (let i = 0; i < getBlogState.length; i++) {
+    data1.push({
+      key: i + 1,
+      name: getBlogState[i].title,
+      category: getBlogState[i].category,
+
+      action: (
+        <>
+          <Link
+            to={`/admin/blog/${getBlogState[i].id}`}
+            className=" fs-3 text-danger"
+          >
+            <BiEdit />
+          </Link>
+          <button
+            className="ms-3 fs-3 text-danger bg-transparent border-0"
+            onClick={() => showModal(getBlogState[i]._id)}
+          >
+            <AiFillDelete />
+          </button>
+        </>
+      ),
+    });
+  }
+  const deleteBlog =async (e) => {
+    setOpen(false);
+    await dispatch(deleteABlog(e));
+
+    dispatch(getBlogs());
+  };
   return (
     <div>
-      <h3 className="mb-4 title">BlogList</h3>
+      <h3 className="mb-4 title">Blogs List</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
+      <CustomModal
+        hideModal={hideModal}
+        open={open}
+        performAction={() => {
+          deleteBlog(blogId);
+        }}
+        title="Are you sure you want to delete this blog?"
+      />
     </div>
   );
 };
 
-export default BlogList;
+export default Bloglist;
