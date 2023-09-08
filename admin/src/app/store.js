@@ -4,6 +4,7 @@ import customerReducer from "../feature/customer/customerSlice.js";
 import productReducer from "../feature/product/productLSlice.js"
 import brandReducer from "../feature/brand/brandSlice.js"
 import pCategoryReducer from "../feature/pcategory/pcategorySlice"
+import colorReducer from "../feature/color/colorSlice.js"
 export const store=configureStore({
     reducer:{
         auth:authReducer,
@@ -11,5 +12,6 @@ export const store=configureStore({
         product: productReducer,
         brand: brandReducer,
         pCategory: pCategoryReducer,
+        color: colorReducer,
     }
 })
