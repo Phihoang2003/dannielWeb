@@ -10,6 +10,7 @@ import blogRoute from "./routes/blogRoute.js"
 import categoryRoute from "./routes/categoryRoute.js"
 import blogCatRoute from "./routes/blogCatRoute.js"
 import couponRoute from "./routes/couponRoute.js"
+import brandRoute from "./routes/brandRoute.js"
 import cors from "cors"
 dotenv.config()
 const port =8080;
@@ -37,6 +38,7 @@ app.use("/api/blog",blogRoute)
 app.use("/api/category",categoryRoute)
 app.use("/api/blogCat",blogCatRoute)
 app.use("/api/coupon",couponRoute)
+app.use("/api/brand",brandRoute)
 app.use(notFound)
 app.use(errorHandler);
 
