@@ -21,6 +21,7 @@ import AddCat from "./pages/AddCat";
 import AddBrand from "./pages/AddBrand"
 import AddProduct from "./pages/AddProduct";
 import Couponlist from "./pages/Couponlist";
+import ViewOrder from "./pages/ViewOrder";
 function App() {
   return(
     <Router>
@@ -35,6 +36,7 @@ function App() {
           <Route path="blog-list" element={<BlogList/>}/>
           <Route path="blog-category-list" element={<Blogcatlist/>}/>
           <Route path="orders" element={<Orders/>}/>
+          <Route path="order/:id" element={<ViewOrder/>}/>
           <Route path="customers" element={<Customers/>}/>
           <Route path="list-color" element={<Colorlist/>}/>
           <Route path="list-category" element={<CategoryList/>}/>
