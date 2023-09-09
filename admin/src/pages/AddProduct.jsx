@@ -11,7 +11,8 @@ import { getBrands } from "../feature/brand/brandSlice";
 import { getCategories } from "../feature/pcategory/pcategorySlice";
 import { getColors } from "../feature/color/colorSlice";
 import { Select } from "antd";
-import {useDropzone} from "react-dropzone";
+import Dropzone from "react-dropzone";
+import axios from "axios";
 
 import { createProducts, resetState } from "../feature/product/productLSlice";
 let schema = yup.object().shape({
@@ -32,6 +33,8 @@ const AddProduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [color, setColor] = useState([]);
+  const [files, setFiles] = useState('');
+  
   console.log(color);
   useEffect(() => {
     dispatch(getBrands());
@@ -77,6 +80,7 @@ const AddProduct = () => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
+        console.log(values);
       dispatch(createProducts(values));
       formik.resetForm();
       setColor(null);
@@ -89,22 +93,9 @@ const AddProduct = () => {
     setColor(e);
     console.log(color);
   };
-  function DropzoneWithoutClick(props) {
-    const {getRootProps, acceptedFiles} = useDropzone();
-    const files = acceptedFiles.map(file => <li key={file.path}>{file.path}</li>);
   
-    return (
-      <section className="container">
-        <div {...getRootProps({className: 'dropzone'})}>
-          <p>Dropzone without click events</p>
-        </div>
-        <aside>
-          <h4>Files</h4>
-          <ul>{files}</ul>
-        </aside>
-      </section>
-    );
-  }
+  
+  
   return (
     <div>
       <h3 className="mb-4 title">Add Product</h3>
@@ -230,7 +221,37 @@ const AddProduct = () => {
           </div>
           <div className="bg-white border-1 p-5 text-center">
             
-          <DropzoneWithoutClick />
+          <div className="bg-white border-1 p-5 text-center">
+            <Dropzone
+              onDrop={async (acceptedFiles) => {
+                const list =await Promise.all(
+                    Object.values(acceptedFiles).map(async (file) => {
+                      const data = new FormData();
+                      data.append("file", file);
+                      data.append("upload_preset", "upload");
+                      const uploadRes = await axios.post(
+                        "https://api.cloudinary.com/v1_1/hoangphi/image/upload",
+                        data
+                      );
+                      const { url } = uploadRes.data;
+                      return url;
+                    })
+                  );
+                  formik.setFieldValue("images",list)
+              }}
+            >
+              {({ getRootProps, getInputProps }) => (
+                <section>
+                  <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    <p>
+                      Drag 'n' drop some files here, or click to select files
+                    </p>
+                  </div>
+                </section>
+              )}
+            </Dropzone>
+          </div>
           </div>
 
           <button
