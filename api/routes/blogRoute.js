@@ -4,7 +4,7 @@ import { authMiddleware } from "../middleware/authMiddleware.js";
 const router=express.Router();
 
 router.post("/",authMiddleware,createBlog)
-router.get("/",authMiddleware,getAllBlogs);
+router.get("/",getAllBlogs);
 router.put("/likes",authMiddleware,likeTheBlog)
 router.put("/dislikes",authMiddleware,dislikeTheBlog)
 router.get("/:id",getABlog)
