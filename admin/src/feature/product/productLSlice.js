@@ -16,6 +16,7 @@ export const createProducts = createAsyncThunk(
   async (productData, thunkAPI) => {
     try {
       return await productService.createProduct(productData);
+      
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -29,6 +30,7 @@ const initialState = {
   isLoading: false,
   isSuccess: false,
   message: "",
+  createdProduct: null,
 };
 export const productSlice = createSlice({
   name: "products",

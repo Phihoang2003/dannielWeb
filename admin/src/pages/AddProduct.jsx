@@ -35,7 +35,6 @@ const AddProduct = () => {
   const [color, setColor] = useState([]);
   const [files, setFiles] = useState('');
   
-  console.log(color);
   useEffect(() => {
     dispatch(getBrands());
     dispatch(getCategories());
@@ -46,6 +45,7 @@ const AddProduct = () => {
   const catState = useSelector((state) => state.pCategory.pCategories);
   const colorState = useSelector((state) => state.color.colors);
   const newProduct = useSelector((state) => state.product);
+  console.log(newProduct);
   const { isSuccess, isError, isLoading, createdProduct } = newProduct;
   useEffect(() => {
     if (isSuccess && createdProduct) {
@@ -73,14 +73,13 @@ const AddProduct = () => {
       price: "",
       brand: "",
       category: "",
-      tags: "",
       color: "",
       quantity: "",
+      tags:"",
       images:""
     },
     validationSchema: schema,
     onSubmit: (values) => {
-        console.log(values);
       dispatch(createProducts(values));
       formik.resetForm();
       setColor(null);
@@ -94,7 +93,26 @@ const AddProduct = () => {
     console.log(color);
   };
   
-  
+  const uploadImg=async(acceptedFiles)=>{
+    try {
+        const list =await Promise.all(
+            Object.values(acceptedFiles).map(async (file) => {
+              const data = new FormData();
+              data.append("file", file);
+              data.append("upload_preset", "upload");
+              const uploadRes = await axios.post(
+                "https://api.cloudinary.com/v1_1/hoangphi/image/upload",
+                data
+              );
+              const { url } = uploadRes.data;
+              return url;
+            })
+          );
+          formik.setFieldValue("images",list)
+    } catch (error) {
+        throw new Error(error)
+    }
+  }
   
   return (
     <div>
@@ -223,21 +241,8 @@ const AddProduct = () => {
             
           <div className="bg-white border-1 p-5 text-center">
             <Dropzone
-              onDrop={async (acceptedFiles) => {
-                const list =await Promise.all(
-                    Object.values(acceptedFiles).map(async (file) => {
-                      const data = new FormData();
-                      data.append("file", file);
-                      data.append("upload_preset", "upload");
-                      const uploadRes = await axios.post(
-                        "https://api.cloudinary.com/v1_1/hoangphi/image/upload",
-                        data
-                      );
-                      const { url } = uploadRes.data;
-                      return url;
-                    })
-                  );
-                  formik.setFieldValue("images",list)
+              onDrop={ (acceptedFiles) => {
+                uploadImg(acceptedFiles)
               }}
             >
               {({ getRootProps, getInputProps }) => (

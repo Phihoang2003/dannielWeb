@@ -19,5 +19,6 @@ export const store=configureStore({
         bCategory: bCategoryReducer,
         blogs: blogReducer,
         coupon: couponReducer,
+        
     }
 })

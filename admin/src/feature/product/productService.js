@@ -8,10 +8,9 @@ const getProducts = async () => {
   return response.data;
 };
 const createProduct = async (product) => {
-  console.log("jsdfjs");
-  const response = await axios.post(`${base_url}product/`, product, config);
-
-  return response.data;
+  console.log({product});
+  const response = await axios.post(`${base_url}product/`, product);
+  return response.data; 
 };
 
 const productService = {
