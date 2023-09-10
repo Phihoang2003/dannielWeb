@@ -8,6 +8,8 @@ import colorReducer from "../feature/color/colorSlice.js"
 import bCategoryReducer from "../feature/bcategory/bcategorySlice.js"
 import blogReducer from "../feature/blog/blogSlice"
 import couponReducer from "../feature/coupon/couponSlice.js"
+
+import uploadReducer from "../feature/upload/uploadSlice.js"
 export const store=configureStore({
     reducer:{
         auth:authReducer,
@@ -19,6 +21,7 @@ export const store=configureStore({
         bCategory: bCategoryReducer,
         blogs: blogReducer,
         coupon: couponReducer,
+        upload: uploadReducer,
         
     }
 })
