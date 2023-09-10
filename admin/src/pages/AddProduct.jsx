@@ -12,8 +12,7 @@ import { getCategories } from "../feature/pcategory/pcategorySlice";
 import { getColors } from "../feature/color/colorSlice";
 import { Select } from "antd";
 import Dropzone from "react-dropzone";
-import axios from "axios";
-
+import { delImg, uploadImg } from "../feature/upload/uploadSlice";
 import { createProducts, resetState } from "../feature/product/productLSlice";
 let schema = yup.object().shape({
   title: yup.string().required("Title is Required"),
@@ -33,8 +32,8 @@ const AddProduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [color, setColor] = useState([]);
-  const [files, setFiles] = useState('');
-  
+  const [images, setImages] = useState([]);
+  console.log(color);
   useEffect(() => {
     dispatch(getBrands());
     dispatch(getCategories());
@@ -44,8 +43,8 @@ const AddProduct = () => {
   const brandState = useSelector((state) => state.brand.brands);
   const catState = useSelector((state) => state.pCategory.pCategories);
   const colorState = useSelector((state) => state.color.colors);
+  const imgState = useSelector((state) => state.upload.images);
   const newProduct = useSelector((state) => state.product);
-  console.log(newProduct);
   const { isSuccess, isError, isLoading, createdProduct } = newProduct;
   useEffect(() => {
     if (isSuccess && createdProduct) {
@@ -62,10 +61,18 @@ const AddProduct = () => {
       value: i._id,
     });
   });
+  const img = [];
+  imgState.forEach((i) => {
+    img.push({
+      public_id: i.public_id,
+      url: i.url,
+    });
+  });
 
   useEffect(() => {
     formik.values.color = color ? color : " ";
-  }, [color]);
+    formik.values.images = img;
+  }, [color, img]);
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -73,10 +80,10 @@ const AddProduct = () => {
       price: "",
       brand: "",
       category: "",
+      tags: "",
       color: "",
       quantity: "",
-      tags:"",
-      images:""
+      images: "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
@@ -92,28 +99,6 @@ const AddProduct = () => {
     setColor(e);
     console.log(color);
   };
-  
-  const uploadImg=async(acceptedFiles)=>{
-    try {
-        const list =await Promise.all(
-            Object.values(acceptedFiles).map(async (file) => {
-              const data = new FormData();
-              data.append("file", file);
-              data.append("upload_preset", "upload");
-              const uploadRes = await axios.post(
-                "https://api.cloudinary.com/v1_1/hoangphi/image/upload",
-                data
-              );
-              const { url } = uploadRes.data;
-              return url;
-            })
-          );
-          formik.setFieldValue("images",list)
-    } catch (error) {
-        throw new Error(error)
-    }
-  }
-  
   return (
     <div>
       <h3 className="mb-4 title">Add Product</h3>
@@ -238,12 +223,8 @@ const AddProduct = () => {
             {formik.touched.quantity && formik.errors.quantity}
           </div>
           <div className="bg-white border-1 p-5 text-center">
-            
-          <div className="bg-white border-1 p-5 text-center">
             <Dropzone
-              onDrop={ (acceptedFiles) => {
-                uploadImg(acceptedFiles)
-              }}
+              onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}
             >
               {({ getRootProps, getInputProps }) => (
                 <section>
@@ -257,8 +238,21 @@ const AddProduct = () => {
               )}
             </Dropzone>
           </div>
+          <div className="showimages d-flex flex-wrap gap-3">
+            {imgState?.map((i, j) => {
+              return (
+                <div className=" position-relative" key={j}>
+                  <button
+                    type="button"
+                    onClick={() => dispatch(delImg(i.public_id))}
+                    className="btn-close position-absolute"
+                    style={{ top: "10px", right: "10px" }}
+                  ></button>
+                  <img src={i.url} alt="" width={200} height={200} />
+                </div>
+              );
+            })}
           </div>
-
           <button
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
