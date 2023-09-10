@@ -1,5 +1,5 @@
 import express from "express"
-import  { uploadImages, deleteImages } from "../controllers/uploadCtrl"
+import  { uploadImages, deleteImages } from "../controllers/uploadCtrl.js"
 import { isAdmin, authMiddleware } from "../middleware/authMiddleware.js"
 import  { uploadPhoto, productImgResize } from "../middleware/uploadImage.js"
 const router = express.Router();

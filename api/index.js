@@ -12,6 +12,7 @@ import blogCatRoute from "./routes/blogCatRoute.js"
 import couponRoute from "./routes/couponRoute.js"
 import brandRoute from "./routes/brandRoute.js"
 import colorRoute from "./routes/colorRoute.js"
+import uploadRouter from "./routes/uploadRoute.js"
 import cors from "cors"
 dotenv.config()
 const port =8080;
@@ -43,7 +44,7 @@ app.use("/api/brand",brandRoute)
 app.use("/api/color",colorRoute);
 app.use(notFound)
 app.use(errorHandler);
-
+app.use("/api/upload", uploadRouter);
 app.listen(port,()=>{
     connect();
     console.log('Connect to backend');
