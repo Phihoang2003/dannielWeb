@@ -1,7 +1,7 @@
 import express from "express"
 import cookieParser from "cookie-parser"
 import mongoose from "mongoose"
-import dotenv from "dotenv"
+import * as dotenv from "dotenv";
 import bodyParser from "body-parser"
 import productRoute from "./routes/productRoute.js"
 import { errorHandler, notFound } from "./middleware/errorHandler.js"
@@ -42,9 +42,9 @@ app.use("/api/blogCat",blogCatRoute)
 app.use("/api/coupon",couponRoute)
 app.use("/api/brand",brandRoute)
 app.use("/api/color",colorRoute);
+app.use("/api/upload", uploadRouter);
 app.use(notFound)
 app.use(errorHandler);
-app.use("/api/upload", uploadRouter);
 app.listen(port,()=>{
     connect();
     console.log('Connect to backend');
