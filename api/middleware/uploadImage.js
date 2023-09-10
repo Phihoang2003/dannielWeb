@@ -1,9 +1,15 @@
 import multer from "multer"
-import sharp from "sharp"
-import path from "path"
+import path from "path";
 import fs from "fs"
+import { fileURLToPath } from 'url';
+import sharp from "sharp"
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
+console.log(__dirname);
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
+    
     cb(null, path.join(__dirname, "../public/images/"));
   },
   filename: function (req, file, cb) {
