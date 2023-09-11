@@ -1,7 +1,7 @@
 import express from "express"
 import cookieParser from "cookie-parser"
 import mongoose from "mongoose"
-import * as dotenv from "dotenv";
+import  dotenv from "dotenv";
 import bodyParser from "body-parser"
 import productRoute from "./routes/productRoute.js"
 import { errorHandler, notFound } from "./middleware/errorHandler.js"
@@ -14,7 +14,7 @@ import brandRoute from "./routes/brandRoute.js"
 import colorRoute from "./routes/colorRoute.js"
 import uploadRouter from "./routes/uploadRoute.js"
 import cors from "cors"
-dotenv.config()
+dotenv.config();
 const port =8080;
 const app=express()
 
