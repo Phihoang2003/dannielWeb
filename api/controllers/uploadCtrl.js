@@ -2,20 +2,20 @@ import fs from "fs"
 import asyncHandler from "express-async-handler"
 
 import {cloudinaryUploadImg,cloudinaryDeleteImg} from "../utils/cloudinary.js"
-import { log } from "console";
+
 
 export const uploadImages = asyncHandler(async (req, res) => {
   try {
-    const uploader = (path) => cloudinaryUploadImg(path, "images");
+    const uploader =async (path) =>await cloudinaryUploadImg(path, "images");
     const urls = [];
     const files = req.files;
     
     for (const file of files) {
       const { path } = file;
-      console.log(path);
+      
       const newpath = await uploader(path);
-      console.log("sjdkfj");
-      console.log(newpath);
+      
+      
       urls.push(newpath);
       fs.unlinkSync(path);
     }
