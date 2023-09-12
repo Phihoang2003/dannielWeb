@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import uploadService from "./uploadService";
 
 export const uploadImg = createAsyncThunk(
@@ -27,6 +27,7 @@ export const delImg = createAsyncThunk(
     }
   }
 );
+export const addImagesToState=createAction("addImagesToState");
 const initialState = {
   images: [],
   isError: false,
@@ -69,7 +70,13 @@ export const uploadSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.message = action.payload;
-      });
+      })
+      .addCase(addImagesToState,(state,action)=>{
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.images=[...state.images,...action.payload]
+      })
   },
 });
 export default uploadSlice.reducer;

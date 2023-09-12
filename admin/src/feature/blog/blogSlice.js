@@ -143,7 +143,8 @@ export const blogSlice = createSlice({
         state.isSuccess = false;
         state.message = action.error;
       })
-      .addCase(resetState, () => initialState);
+      .addCase(resetState, () => initialState)
+      
   },
 });
 export default blogSlice.reducer;

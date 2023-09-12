@@ -1,67 +1,61 @@
+import { React, useEffect, useState } from "react";
+import CustomInput from "../component/CustomInput";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import CustomInput from "../component/CustomInput";
-
+import Dropzone from "react-dropzone";
+import { addImagesToState, delImg, uploadImg } from "../feature/upload/uploadSlice";
 import { toast } from "react-toastify";
-import { useEffect, useState } from "react";
+import * as yup from "yup";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { uploadImg, delImg } from "../feature/upload/uploadSlice";
-import Dropzone from "react-dropzone";
-import * as yup from "yup";
 import { useFormik } from "formik";
 import {
   createBlogs,
-  updateABlog,
-  resetState,
   getABlog,
+  resetState,
+  updateABlog,
 } from "../feature/blog/blogSlice";
 import { getCategories } from "../feature/bcategory/bcategorySlice";
 
 let schema = yup.object().shape({
-  title: yup.string().required("Title is required"),
-  description: yup.string().required("Description is required"),
-  category: yup.string().required("Category is required"),
+  title: yup.string().required("Title is Required"),
+  description: yup.string().required("Description is Required"),
+  category: yup.string().required("Category is Required"),
 });
 const AddBlog = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const getBlogId = location.pathname.split("/")[3];
-  const imgState = useSelector((state) => state.upload.images);
+  let imgState = useSelector((state) => state.upload.images);
   const bCatState = useSelector((state) => state.bCategory.bCategories);
   const blogState = useSelector((state) => state.blogs);
-
   const {
     isSuccess,
     isError,
     isLoading,
+    createdBlog,
     blogName,
     blogDesc,
     blogCategory,
     blogImages,
-    createdBlog,
     updatedBlog,
   } = blogState;
-  //Khi trong blog chưa có ảnh thì khi upload img sẽ cập nhật ảnh trong stateImg
-  const img = [];
-  imgState.forEach((i) => {
-    img.push({
-      public_id: i.public_id,
-      url: i.url,
-    });
-  });
-  //Còn khi trong blog đã có ảnh thì khi load blog ra img sẽ lấy ảnh trong blog
+  useEffect(()=>{
+    if(blogImages){
+      dispatch(addImagesToState(blogImages))
+    }
+  },[blogImages])
   useEffect(() => {
     if (getBlogId !== undefined) {
-       dispatch(getABlog(getBlogId));
       
-      img.push(blogImages);
+      dispatch(getABlog(getBlogId));
+      
     } else {
       dispatch(resetState());
     }
   }, [getBlogId]);
-  console.log(img);
+
   useEffect(() => {
     dispatch(resetState());
     dispatch(getCategories());
@@ -79,9 +73,28 @@ const AddBlog = () => {
       toast.error("Something Went Wrong!");
     }
   }, [isSuccess, isError, isLoading]);
+
+  const img = [];
+  imgState.forEach((i) => {
+    img.push({
+      public_id: i.public_id,
+      url: i.url,
+      
+    });
+  });
+ 
   useEffect(() => {
     formik.values.images = img;
   }, [blogImages]);
+  useEffect(() => {
+    // Kiểm tra xem giá trị mới của img có khác với giá trị trước đó không
+    if (JSON.stringify(img) !== JSON.stringify(formik.values.images)) {
+      formik.setFieldValue("images", img); // Cập nhật giá trị images trong formik
+      
+    }
+  }, [img]);
+  
+  
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -89,10 +102,12 @@ const AddBlog = () => {
       description: blogDesc || "",
       category: blogCategory || "",
       images: "",
+      
     },
     validationSchema: schema,
     onSubmit: (values) => {
       if (getBlogId !== undefined) {
+        
         const data = { id: getBlogId, blogData: values };
         dispatch(updateABlog(data));
         dispatch(resetState());
@@ -101,10 +116,13 @@ const AddBlog = () => {
         formik.resetForm();
         setTimeout(() => {
           dispatch(resetState());
+          formik.resetForm()
         }, 300);
       }
+      console.log({values});
     },
   });
+  console.log({imgState});
   return (
     <div>
       <h3 className="mb-4 title">
@@ -173,7 +191,9 @@ const AddBlog = () => {
             </Dropzone>
           </div>
           <div className="showimages d-flex flex-wrap mt-3 gap-3">
+            
             {imgState?.map((i, j) => {
+              console.log("hello ");
               return (
                 <div className=" position-relative" key={j}>
                   <button
