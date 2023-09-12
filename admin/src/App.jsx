@@ -35,6 +35,8 @@ function App() {
           <Route path="enquiries" element={<Enquiries/>}/>
           <Route path="blog-list" element={<BlogList/>}/>
           <Route path="blog-category-list" element={<Blogcatlist/>}/>
+          <Route path="blog-category" element={<AddblogCat/>}/>
+          <Route path="blog-category/:id" element={<AddblogCat/>}/>
           <Route path="orders" element={<Orders/>}/>
           <Route path="order/:id" element={<ViewOrder/>}/>
           <Route path="customers" element={<Customers/>}/>
@@ -47,7 +49,6 @@ function App() {
           <Route path="brand/:id" element={<AddBrand />} />
           <Route path="list-product" element={<ProductList/>}/>
           <Route path="blog" element={<AddBlog/>}/>
-          <Route path="blog-category" element={<AddblogCat/>}/>
           <Route path="color" element={<AddColor/>}/>
           <Route path="color/:id" element={<AddColor/>}/>
           <Route path="coupon-list" element={<Couponlist/>}/>
