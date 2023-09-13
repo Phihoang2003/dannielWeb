@@ -41,11 +41,7 @@ const AddBlog = () => {
     blogImages,
     updatedBlog,
   } = blogState;
-  useEffect(()=>{
-    if(blogImages){
-      dispatch(addImagesToState(blogImages))
-    }
-  },[blogImages])
+  
   useEffect(() => {
     if (getBlogId !== undefined) {
       
@@ -193,7 +189,8 @@ const AddBlog = () => {
           <div className="showimages d-flex flex-wrap mt-3 gap-3">
             
             {imgState?.map((i, j) => {
-              console.log("hello ");
+              
+              
               return (
                 <div className=" position-relative" key={j}>
                   <button
@@ -202,6 +199,7 @@ const AddBlog = () => {
                     className="btn-close position-absolute"
                     style={{ top: "10px", right: "10px" }}
                   ></button>
+                  
                   <img src={i.url} alt="" width={200} height={200} />
                 </div>
               );
