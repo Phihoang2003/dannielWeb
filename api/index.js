@@ -43,6 +43,7 @@ app.use("/api/coupon",couponRoute)
 app.use("/api/brand",brandRoute)
 app.use("/api/color",colorRoute);
 app.use("/api/upload", uploadRouter);
+
 app.use(notFound)
 app.use(errorHandler);
 app.listen(port,()=>{
