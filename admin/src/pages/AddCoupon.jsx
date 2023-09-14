@@ -34,11 +34,14 @@ const AddCoupon = () => {
     couponExpiry,
     updatedCoupon,
   } = newCoupon;
-  const changeDateFormet = (date) => {
-    const newDate = new Date(date).toLocaleDateString();
-    const [month, day, year] = newDate.split("/");
+  const changeDateFormat = (date) => {
+    const dateObj = new Date(date); // Chuyển đổi thành đối tượng Date
+    const year = dateObj.getFullYear();
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0"); // Đảm bảo rằng tháng luôn có 2 chữ số
+    const day = String(dateObj.getDate()).padStart(2, "0"); // Đảm bảo rằng ngày luôn có 2 chữ số
     return [year, month, day].join("-");
   };
+  
 
   useEffect(() => {
     if (getCouponId !== undefined) {
@@ -65,7 +68,7 @@ const AddCoupon = () => {
     enableReinitialize: true,
     initialValues: {
       name: couponName || "",
-      expiry: changeDateFormet(couponExpiry) || "",
+      expiry: changeDateFormat(couponExpiry) || "",
       discount: couponDiscount || "",
     },
     validationSchema: schema,
@@ -108,6 +111,7 @@ const AddCoupon = () => {
             name="expiry"
             onCh={formik.handleChange("expiry")}
             onBl={formik.handleBlur("expiry")}
+    
             val={formik.values.expiry}
             label="Enter Expiry Data"
             id="date"
@@ -115,6 +119,7 @@ const AddCoupon = () => {
           <div className="error">
             {formik.touched.expiry && formik.errors.expiry}
           </div>
+          {console.log(formik.values.expiry)}
           <CustomInput
             type="number"
             name="discount"
@@ -124,6 +129,7 @@ const AddCoupon = () => {
             label="Enter Discount"
             id="discount"
           />
+          
           <div className="error">
             {formik.touched.discount && formik.errors.discount}
           </div>

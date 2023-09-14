@@ -33,7 +33,13 @@ const columns = [
     dataIndex: "action",
   },
 ];
-
+function formatDate(dateString) {
+  const parts = dateString.split("/");
+  const month = parts[0].padStart(2,"0");
+  const day = parts[1].padStart(2,"0");
+  const year = parts[2];
+  return `${day}/${month}/${year}`;
+}
 const Couponlist = () => {
   const [open, setOpen] = useState(false);
   const [couponId, setcouponId] = useState("");
@@ -56,7 +62,7 @@ const Couponlist = () => {
       key: i + 1,
       name: couponState[i].name,
       discount: couponState[i].discount,
-      expiry: new Date(couponState[i].expiry).toLocaleString(),
+      expiry: formatDate(new Date(couponState[i].expiry).toLocaleString()),
       action: (
         <>
           <Link
