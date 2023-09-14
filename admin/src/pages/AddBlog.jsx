@@ -115,10 +115,10 @@ const AddBlog = () => {
           formik.resetForm()
         }, 300);
       }
-      console.log({values});
+      
     },
   });
-  console.log({imgState});
+  
   return (
     <div>
       <h3 className="mb-4 title">

@@ -119,7 +119,7 @@ const AddCoupon = () => {
           <div className="error">
             {formik.touched.expiry && formik.errors.expiry}
           </div>
-          {console.log(formik.values.expiry)}
+          
           <CustomInput
             type="number"
             name="discount"
