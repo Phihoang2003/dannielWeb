@@ -50,6 +50,29 @@
     text-align: center;
     width: 600px;
   }
+  .input-group{
+    position: relative;
+  }
+  
+  .input-group label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    padding: 0 10px;
+    transition: .5s ;
+  }
+  .input-group input:focus~label,.input-group input:valid~label{
+    
+    top: 0;
+    font-size: 12px;
+    background-color: #00081c;
+  }
+  .input1{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
   .info-subcribe p:nth-child(2) {margin-top: 22px;
     letter-spacing: 2.7px;
     font-size: 12px;
@@ -69,9 +92,18 @@
   }
   .info-subcribe input {
     position: relative;
-    padding: 15px 100px 15px;
+    /* padding: 15px 100px 15px; */
     background-color: #00081c;
     border: #fff 1px solid;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 224px;
+    caret-color: #ffffff;
+    caption-side: block-start;
+    /* left: 0; */
+    /* text-align: left; */
+    text-indent: 15px;
+    color: white;
   }
   input::placeholder {
     position: absolute;

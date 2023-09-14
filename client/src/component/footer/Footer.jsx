@@ -23,8 +23,13 @@ const Footer = () => {
             new launches from the Daniel Wellington community. Sign up today,
             and you'll receive 10% off your first order.
           </p>
-          <input type="text" placeholder="Email" />
-          <div className="btn-subcribe">Subcribe</div>
+          <div className="input1">
+            <div className="input-group">
+              <input type="text" required  />
+              <label for="">Email</label>
+            </div>
+            <div className="btn-subcribe">Subcribe</div>
+          </div>
           <div class="text-subcribe">
             <span class="text">
               By signing up, I confirm that I’m 16 years or older, that I want
