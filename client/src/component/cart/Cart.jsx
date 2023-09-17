@@ -22,7 +22,7 @@ const Cart =({item})=>{
                <div className="new-cart" >New</div>
                <div className="title-cart">{item.title}</div>
                <div className="color">
-                <div className="item1">
+                <div className="item1 flex ">
                     {item.color.map(i=>{
                         return <img src={i} alt="color error"/>
                     })}
