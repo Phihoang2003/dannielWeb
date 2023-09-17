@@ -9,12 +9,12 @@ const Cart =({item})=>{
         <div className="cart">
             
             <div className="image-cart">
-                {/* <img src={item.images[0].url} alt="img-error" /> */}
+               {item?.images&& <img src={item?.images[0]?.url} alt="img-error" />}
 
 
-                <div className="background-img">
+                {/* <div className="background-img">
                     <img src={item.background||item.img} alt="background-error" />
-                </div>
+                </div> */}
             </div>
             
 

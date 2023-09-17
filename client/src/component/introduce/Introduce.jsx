@@ -2,7 +2,7 @@ import "./Introduce.scss"
 import video from "../../img/intro-video/video-inro.mp4"
 const Introduce=()=>{
     return(
-        <div className="introduce">
+        <div className="introduce mt-8">
             <div className="left-intro">
                 <video src={video} width="534" height="300" controls/>
             </div>

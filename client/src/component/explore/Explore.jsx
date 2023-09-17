@@ -2,7 +2,7 @@ import "./Explore.scss"
 import img from "../../img/explore/explore.webp"
 const Explore=()=>{
     return(
-        <div className="explore">
+        <div className="explore mt-8">
             <div className="img-explore">
                 <img src={img} alt="" />
 
