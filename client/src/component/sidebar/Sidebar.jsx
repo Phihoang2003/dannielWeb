@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowRight, faXmark } from "@fortawesome/free-solid-svg-icons"
 import { useState,useContext, useEffect } from "react"
 import { OpenSidebar } from "../navbar/Navbar"
+import { Link } from 'react-router-dom';
+import { sidebarData } from "../../datasource/sidebarData/sidebarData"
+import SubMenu from "./SubNav"
 const Sidebar=()=>{
     
     const {showSidebar,toggleSidebar,sidebarValue}=useContext(OpenSidebar)
@@ -22,7 +25,7 @@ const Sidebar=()=>{
         <div className="wrapper">
             
             <div className= {showSidebar&&sidebarValue?'sidebar ':'sidebar close'}  >
-                <div className="header">
+                <div className="header mt-[44px]">
                     <div className="content-header">
                         <div>Main menu</div>
                         <div ><FontAwesomeIcon icon={faXmark} onClick={toggleSidebar} /></div>
@@ -31,38 +34,18 @@ const Sidebar=()=>{
                 <div className="menu-bar">
                     <div className="menu">
                         <ul className="menu-list">
-                            <li className="item-menu">
-                                <div className="item">Offers</div>
-                                <div><FontAwesomeIcon icon={faArrowRight} /></div>
-                            </li>
-                            <li className="item-menu">
-                                <div className="item">Shop gifts</div>
-                                <div><FontAwesomeIcon icon={faArrowRight} /></div>
-                            </li>
-                            <li className="item-menu">
-                                <div className="item">Watches</div>
-                                <div><FontAwesomeIcon icon={faArrowRight} /></div>
-                            </li>
-                            <li className="item-menu">
-                                <div className="item">Jewellery</div>
-                                <div><FontAwesomeIcon icon={faArrowRight} /></div>
-                            </li>
-            
-                            <li className="item-menu">
-                                <div className="item">Smartwatch case</div>
-            
-                            </li>
-                            <li className="item-menu">
-                                <div className="item">Sunglasses</div>
-                            </li>
-                            <li className="item-menu">
-                                <div className="item">Edit</div>
-                                <div><FontAwesomeIcon icon={faArrowRight} /></div>
-                            </li>
-                            <li className="item-menu">
-                                <div className="item">Discover</div>
-                                <div><FontAwesomeIcon icon={faArrowRight} /></div>
-                            </li>
+                            
+                                {sidebarData.map((item,index)=>{
+                                    return(
+                                        <li className="item-menu flex flex-col h-5 justify-between flex-1 ">
+                                            <SubMenu item={item} key={index}/>
+                                        </li>
+                                    )
+                                })}
+                                {/* <div className="item">Offers</div>
+                                <div><FontAwesomeIcon icon={faArrowRight} /></div> */}
+                           
+                            
                         </ul>
                     </div>
                 </div>
