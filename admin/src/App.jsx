@@ -33,8 +33,11 @@ function App() {
         <Route path="/admin" element={<MainLayout/>}>
           <Route index element={<Dashboard />} />
           <Route path="product" element={<AddProduct/>}/>
+          <Route path="product/:id" element={<AddProduct/>}/>
+
           <Route path="enquiries" element={<Enquiries/>}/>
           <Route path="blog-list" element={<BlogList/>}/>
+
           <Route path="blog-category-list" element={<Blogcatlist/>}/>
           <Route path="blog-category" element={<AddblogCat/>}/>
           <Route path="blog-category/:id" element={<AddblogCat/>}/>
@@ -49,6 +52,8 @@ function App() {
           <Route path="brand" element={<AddBrand/>}/>
           <Route path="brand/:id" element={<AddBrand />} />
           <Route path="list-product" element={<ProductList/>}/>
+          
+
           <Route path="blog" element={<AddBlog/>}/>
           <Route path="blog/:id" element={<AddBlog/>}/>
           <Route path="color" element={<AddColor/>}/>
