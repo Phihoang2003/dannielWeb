@@ -13,9 +13,9 @@ function App() {
     <div className="container">
     <BrowserRouter>
       <Routes>
-        <Route path="/home" element={<Home/>} />
-        <Route path="/watch/allwatch" element={<AllWatch/>}/>
-        <Route path="/jewellery/charm" element={<CharmJewellery/>}/>
+        <Route path="/" element={<Home/>} />
+        <Route path="/watches/all-watches" element={<AllWatch/>}/>
+        <Route path="/jewelry/charms" element={<CharmJewellery/>}/>
 
 
 
