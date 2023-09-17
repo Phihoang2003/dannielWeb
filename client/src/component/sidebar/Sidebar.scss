@@ -44,7 +44,7 @@
 
 }
 .content-header{
-    margin-top: 20px;
+    
     color: black;
 
     width: 367px;
@@ -69,6 +69,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-right: 98px;
 }
 .item-menu{
     margin-top: 17px;
@@ -80,7 +81,6 @@
     justify-content: space-between;
     align-items: center;
     div:nth-child(2){
-        font-size: 20px;
         opacity: 1;
         cursor: pointer;
         transform: var(--tran-03);
