@@ -7,7 +7,7 @@ import featureData1 from "../../datasource/product/feature1"
 import featureData2 from "../../datasource/product/feature2"
 import bg from "../../img/product/feature2/bg.webp"
 import Cart from "../cart/Cart"
-const FeatureProduct =()=>{
+const FeatureProduct =({products})=>{
     return (
         <div className="product">
             <div className="title-pro">
