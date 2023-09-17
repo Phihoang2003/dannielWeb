@@ -9,11 +9,17 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { getBrands } from "../feature/brand/brandSlice";
 import { getCategories } from "../feature/pcategory/pcategorySlice";
+import { useLocation } from "react-router-dom";
 import { getColors } from "../feature/color/colorSlice";
 import { Select } from "antd";
 import Dropzone from "react-dropzone";
 import { delImg, uploadImg } from "../feature/upload/uploadSlice";
-import { createProducts, resetState } from "../feature/product/productLSlice";
+import {
+  createProducts,
+  getAProduct,
+  resetState,
+  updateProduct,
+} from "../feature/product/productLSlice";
 let schema = yup.object().shape({
   title: yup.string().required("Title is Required"),
   description: yup.string().required("Description is Required"),
@@ -32,35 +38,37 @@ const AddProduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [color, setColor] = useState([]);
-  const [images, setImages] = useState([]);
-  console.log(color);
+
   useEffect(() => {
     dispatch(getBrands());
     dispatch(getCategories());
     dispatch(getColors());
   }, []);
+  const location = useLocation();
+  const getProductId = location.pathname.split("/")[3];
 
   const brandState = useSelector((state) => state.brand.brands);
   const catState = useSelector((state) => state.pCategory.pCategories);
   const colorState = useSelector((state) => state.color.colors);
   const imgState = useSelector((state) => state.upload.images);
   const newProduct = useSelector((state) => state.product);
-  const { isSuccess, isError, isLoading, createdProduct } = newProduct;
-  useEffect(() => {
-    if (isSuccess && createdProduct) {
-      toast.success("Product Added Successfullly!");
-    }
-    if (isError) {
-      toast.error("Something Went Wrong!");
-    }
-  }, [isSuccess, isError, isLoading]);
-  const coloropt = [];
-  colorState.forEach((i) => {
-    coloropt.push({
-      label: i.title,
-      value: i._id,
-    });
-  });
+  const {
+    isSuccess,
+    isError,
+    isLoading,
+    createdProduct,
+    updatedProduct,
+    productPrice,
+    productBrand,
+    productColors,
+    productQuantity,
+    productTag,
+    productName,
+    productDesc,
+    productImages,
+    productCategory,
+  } = newProduct;
+  
   const img = [];
   imgState.forEach((i) => {
     img.push({
@@ -68,41 +76,106 @@ const AddProduct = () => {
       url: i.url,
     });
   });
-
   useEffect(() => {
-    formik.values.color = color ? color : " ";
+    if (getProductId !== undefined) {
+      dispatch(getAProduct(getProductId));
+
+      img.push(productImages);
+    } else {
+      dispatch(resetState());
+    }
+  }, [getProductId]);
+  // useEffect(() => {
+  //   dispatch(resetState());
+  //   dispatch(getCategories());
+  // }, []);
+  useEffect(() => {
+    if (isSuccess && createdProduct) {
+      toast.success("Product Added Successfullly!");
+    }
+    if (isSuccess && updatedProduct) {
+      toast.success("Product updated Successfully");
+      navigate("/admin/list-product")
+    }
+    if (isError) {
+      toast.error("Something Went Wrong!");
+    }
+  }, [isSuccess, isError, isLoading]);
+
+  const coloropt = [];
+  colorState.forEach((i) => {
+    coloropt.push({
+      label: i.title,
+      value: i._id,
+    });
+  });
+ useEffect(()=>{
+  formik.setFieldValue("color",color)
+ },[color])
+  useEffect(() => {
     formik.values.images = img;
-  }, [color, img]);
+    
+  }, [productImages]);
+  // useEffect(() => {
+  //   
+  //   formik.values.images = img;
+  // }, [color, img]);
+  useEffect(() => {
+    // Kiểm tra xem giá trị mới của img có khác với giá trị trước đó không
+    if (JSON.stringify(img) !== JSON.stringify(formik.values.images)) {
+      formik.setFieldValue("images", img); // Cập nhật giá trị images trong formik
+    }
+  }, [img]);
+
+  
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      title: "",
-      description: "",
-      price: "",
-      brand: "",
-      category: "",
-      tags: "",
-      color: "",
-      quantity: "",
-      images: "",
+      title: productName || "",
+      description: productDesc || "",
+      price: productPrice || "",
+      brand: productBrand || "",
+      category: productCategory || "",
+      tags: productTag || "",
+      color:  "",
+      quantity: productQuantity || "",
+      images: productImages || "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      dispatch(createProducts(values));
-      formik.resetForm();
-      setColor(null);
-      setTimeout(() => {
+      console.log({values});
+      if (getProductId !== undefined) {
+        const data = { id: getProductId, productData: values };
+        dispatch(updateProduct(data));
         dispatch(resetState());
-        navigate("/admin/list-product")
-      }, 3000);
+      } else {
+        dispatch(createProducts(values));
+        formik.resetForm();
+        setTimeout(() => {
+          dispatch(resetState());
+          formik.resetForm()
+        }, 300);
+      }
+
+      // dispatch(createProducts(values));
+      // formik.resetForm();
+      // setColor(null);
+      // setTimeout(() => {
+      //   dispatch(resetState());
+      //   navigate("/admin/list-product")
+      // }, 3000);
     },
   });
+  
   const handleColors = (e) => {
     setColor(e);
-    console.log(color);
   };
+  
   return (
     <div>
-      <h3 className="mb-4 title">Add Product</h3>
+      <h3 className="mb-4 title">
+        {getProductId !== undefined ? "Update" : "Add"} Product
+      </h3>
       <div>
         <form
           onSubmit={formik.handleSubmit}
@@ -258,7 +331,7 @@ const AddProduct = () => {
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
-            Add Product
+            {getProductId !== undefined ? "Update" : "Add"} Product
           </button>
         </form>
       </div>
