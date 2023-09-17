@@ -1,5 +1,5 @@
 import "./AllwatchProduct.scss"
-import { allwatch } from "../../datasource/product/feature1"
+
 import Cart from "../cart/Cart"
 const AllwatchProduct=()=>{
     return(

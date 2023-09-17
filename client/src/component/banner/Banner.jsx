@@ -32,7 +32,7 @@ const Banner = ({ img }) => {
             <div>Up to</div>
             <div>30% off</div>
             <div>On select items</div>
-            <div>Explore</div>
+            <div className=" hover:!bg-blue-300 hover:!text-white cursor-pointer">Explore</div>
           </>
         );
         style = 'content-banner';

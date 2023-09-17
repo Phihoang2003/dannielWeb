@@ -12,21 +12,22 @@ import { getAllProducts } from "../../features/products/productSlice";
 import { useEffect } from "react";
 const Home = () => {
   const dispatch=useDispatch();
-  const products=useSelector(state=>state.product.product)
+  const productState=useSelector(state=>state.product.product)
  
-  useEffect(()=>{
-    getProducts();
-  },[])
-  const getProducts=()=>{
-    dispatch(getAllProducts());
-  }
+ useEffect(()=>{
+   getProducts();
+ },[])
+ const getProducts=async()=>{
+  await dispatch(getAllProducts());
+}
+  
   return (
     <Frame>
         
         <Banner img={banner}/>
         <Introduce />
         <Explore />
-        <FeatureProduct products={products} />
+        <FeatureProduct product={productState}  />
         <PopularProduct />
         <BannerSection />
     </Frame>

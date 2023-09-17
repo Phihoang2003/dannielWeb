@@ -3,7 +3,7 @@ import Frame from "../frame/framePage";
 import Banner from "../../component/banner/Banner";
 import banner from "../../img/jewellery/charm/banner.webp"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import data  from "../../datasource/product/feature1";
+
 import Cart from "../../component/cart/Cart";
 const CharmJewellery=()=>{
     return(

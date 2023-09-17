@@ -3,12 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHeart } from "@fortawesome/free-solid-svg-icons"
 
 
-const Cart =({item})=>{
+const Cart =({item})=>{ 
+   
     return(
         <div className="cart">
             
             <div className="image-cart">
-                <img src={item.img} alt="img-error" />
+                {/* <img src={item.images[0].url} alt="img-error" /> */}
 
 
                 <div className="background-img">
@@ -23,8 +24,8 @@ const Cart =({item})=>{
                <div className="title-cart">{item.title}</div>
                <div className="color">
                 <div className="item1 flex ">
-                    {item.color.map(i=>{
-                        return <img src={i} alt="color error"/>
+                    {item.color.map((i,index)=>{
+                        return <img src={i} key={index} alt="color error"/>
                     })}
                 </div>
                

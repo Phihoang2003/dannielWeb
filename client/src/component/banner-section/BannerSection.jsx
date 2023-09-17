@@ -28,8 +28,8 @@ const BannerSection=()=>{
                 </div>
 
                 <div className="wrapper-under">
-                    {underSection.map(item=>
-                        <div className="image" style={{backgroundImage:`url(${item.img})`}}></div>
+                    {underSection.map((item,index)=>
+                        <div className="image" key={index} style={{backgroundImage:`url(${item.img})`}}></div>
                     )}
                         
                     

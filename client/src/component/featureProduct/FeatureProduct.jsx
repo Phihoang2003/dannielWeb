@@ -3,11 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 import { faArrowLeft, faArrowRight, faXmark } from "@fortawesome/free-solid-svg-icons"
 
-import featureData1 from "../../datasource/product/feature1"
+
 import featureData2 from "../../datasource/product/feature2"
 import bg from "../../img/product/feature2/bg.webp"
 import Cart from "../cart/Cart"
-const FeatureProduct =({products})=>{
+const FeatureProduct =({product})=>{
+    
     return (
         <div className="product">
             <div className="title-pro">
@@ -22,9 +23,17 @@ const FeatureProduct =({products})=>{
                 
             </div>
             <div className="list-pro">
-                {featureData1.map(item=>
+                {/* {product?.map(item=>
                     <Cart item={item} key={item.id}/>
-                )}
+                )} */}
+
+
+                {product&&product.map((item)=>{
+
+                    return(
+                        <Cart item={item} key={item._id}/>
+                    )
+                })}
             </div>
 
             <div className="list-pro2">
