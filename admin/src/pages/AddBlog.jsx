@@ -41,7 +41,7 @@ const AddBlog = () => {
     blogImages,
     updatedBlog,
   } = blogState;
-  
+  ;
   useEffect(() => {
     if (getBlogId !== undefined) {
       
