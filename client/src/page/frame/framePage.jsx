@@ -1,6 +1,7 @@
 import Navbar from "../../component/navbar/Navbar";
 import Banner from "../../component/banner/Banner";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./framePage.scss";
 import { useState, useEffect, useContext } from "react";
 
@@ -75,6 +76,18 @@ const Frame = ({children}) => {
 
         {children}
       <Footer/>
+      <ToastContainer 
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      />
     </div>
   );
 };
