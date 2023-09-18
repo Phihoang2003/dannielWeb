@@ -1,10 +1,14 @@
 import "./Cart.scss"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHeart } from "@fortawesome/free-solid-svg-icons"
-
-
+import {useDispatch} from "react-redux"
+import {addToWishList} from "../../features/products/productSlice"
 const Cart =({item})=>{ 
-   
+   const dispatch=useDispatch();
+   const addToWishlist=(proId)=>{
+    
+    dispatch(addToWishList(proId))
+   }
     return(
         <div className="cart">
             
@@ -19,7 +23,7 @@ const Cart =({item})=>{
             
 
            <div className="wrapper-cart">
-               <div className="icon-cart"> <FontAwesomeIcon icon="fa-regular fa-heart" /></div>
+               <div className="icon-cart" > <FontAwesomeIcon onClick={()=>addToWishlist(item?._id)} icon="fa-regular fa-heart" /></div>
                <div className="new-cart" >New</div>
                <div className="title-cart">{item.title}</div>
                <div className="color">
