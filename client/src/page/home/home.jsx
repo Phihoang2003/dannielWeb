@@ -1,4 +1,5 @@
 import "./home.scss";
+
 import Introduce from "../../component/introduce/Introduce";
 import Explore from "../../component/explore/Explore";
 import FeatureProduct from "../../component/featureProduct/FeatureProduct";
