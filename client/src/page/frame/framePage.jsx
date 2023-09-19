@@ -8,7 +8,9 @@ import { useState, useEffect, useContext } from "react";
 
 import Footer from "../../component/footer/Footer";
 const Frame = ({children}) => {
-  
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
   const [sidebar, setSidebar] = useState(false);
   const [open, setOpen] = useState(false);
   
