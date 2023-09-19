@@ -4,6 +4,7 @@ import AllWatch from "./page/allwatch/allwatch";
 import CharmJewellery from "./page/charmJewellery/charmJewellery";
 import SignUp from "./page/signUp/SignUp";
 import Login from "./page/login/Login"
+import WishList from "./page/wishlist/wishlist";
 import "./App.scss"
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { fab } from '@fortawesome/free-brands-svg-icons'
@@ -20,7 +21,7 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/watches/all-watches" element={<AllWatch/>}/>
         <Route path="/jewelry/charms" element={<CharmJewellery/>}/>
-
+        <Route path="/wishlist" element={<WishList/>}/>
 
 
       </Routes>

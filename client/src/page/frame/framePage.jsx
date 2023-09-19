@@ -1,5 +1,5 @@
 import Navbar from "../../component/navbar/Navbar";
-import Banner from "../../component/banner/Banner";
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./framePage.scss";

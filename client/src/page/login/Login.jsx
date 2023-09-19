@@ -25,7 +25,7 @@ const Login = () => {
   });
   
   return (
-    <section class="home show">
+    <section class="home-auth show">
       <div class="form_container">
         <i class="uil uil-times form_close"></i>
         <div class="form login_form">

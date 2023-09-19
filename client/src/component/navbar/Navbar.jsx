@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "../sidebar/Sidebar";
 import { createContext, useEffect, useState } from "react";
-
+import {Link} from "react-router-dom"
 export const OpenSidebar = createContext();
 
 const Navbar = ({ open, sidebar, sidebarValue }) => {
@@ -37,7 +37,7 @@ const Navbar = ({ open, sidebar, sidebarValue }) => {
             <FontAwesomeIcon icon={faMessage} />
           </div>
           <div className="center-navbar">
-            <div className="title-navbar">Daniel wellington</div>
+            <Link to={"/"}><div className="title-navbar">Daniel wellington</div></Link>
             <div className="item-navbar">
               <div>Shop gifts</div>
               <div>Watches</div>
@@ -48,7 +48,7 @@ const Navbar = ({ open, sidebar, sidebarValue }) => {
           </div>
 
           <div className="r-navbar">
-            <FontAwesomeIcon icon={faHeart} />
+            <Link to={"/wishlist"}><FontAwesomeIcon icon={faHeart} /></Link>
             <FontAwesomeIcon icon={faCartShopping} />
           </div>
 

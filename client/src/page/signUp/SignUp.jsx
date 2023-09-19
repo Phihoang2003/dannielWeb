@@ -32,7 +32,7 @@ const SignUp = () => {
   });
 
   return (
-    <section class="home show">
+    <section class="home-auth show">
       <div class="form_container">
         <div class="form login_form">
           <form onSubmit={formik.handleSubmit}>

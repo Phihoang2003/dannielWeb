@@ -7,12 +7,13 @@ const getProducts=async()=>{
         return res.data;
     }
 }
-
+//Truyền dữ liệu từ body,phải thêm dấu {}
 const addToWishList=async(proId)=>{
-    console.log({proId});
-    const res=await axios.put(`${base_url}product/wishlist`,proId,config);
-    console.log("dfjgjdf");
+    
+    const res=await axios.put(`${base_url}product/wishlist`,{proId},config);
+    
     if(res.data){
+        
         return res.data;
     }
 }

@@ -9,13 +9,7 @@
 a {
   text-decoration: none;
 }
-.header {
-  position: fixed;
-  height: 80px;
-  width: 100%;
-  z-index: 100;
-  padding: 0 20px;
-}
+
 .nav {
   max-width: 1100px;
   width: 100%;
@@ -54,7 +48,7 @@ a {
 }
 
 /* Home */
-.home {
+.home-auth {
   position: relative;
   height: 100vh;
   width: 100%;
@@ -62,7 +56,7 @@ a {
   background-size: cover;
   background-position: center;
 }
-.home::before {
+.home-auth::before {
   content: "";
   position: absolute;
   height: 100%;
@@ -73,7 +67,7 @@ a {
   pointer-events: none;
   transition: all 0.5s ease-out;
 }
-.home.show::before {
+.home-auth.show::before {
   opacity: 1;
   pointer-events: auto;
 }
@@ -94,7 +88,7 @@ a {
   pointer-events: none;
   transition: all 0.4s ease-out;
 }
-.home.show .form_container {
+.home-auth.show .form_container {
   opacity: 1;
   pointer-events: auto;
   transform: translate(-50%, -50%) scale(1);
